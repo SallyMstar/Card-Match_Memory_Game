@@ -1,7 +1,7 @@
 /*
  * Create a list that holds all of your cards
  */
-const cards = document.getElementsByClassName('fa');
+const cards = document.querySelectorAll('.card i');
 console.log(cards);  // This is for my reference to see the list of cards in the js console
 
 /*
