@@ -21,33 +21,36 @@ function shuffle(array) {
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
         array[randomIndex] = temporaryValue;
-        //console.log(currentIndex);
     }
     return array;
 }
 
 shuffle(cards);
 
+/* set up the event listener for a card. If a card is clicked:
+     - display the card's symbol (put this functionality in another
+     function that you call from this one) */
 
-/* set up the event listener for a card. If a card is clicked: */
+// set up the check to see if two cards are revealed
+const turned = document.getElementsByClassName('open show');
+
 
 // set up the function to reveal a card
 const look = function() {
      $(this).toggleClass('open show');
+     console.log(turned.length);     
 };
 
 // set up the function to respond to user selection
 const select = function(event) {
      $('ul').on('click', 'li', look);
-
 };
 
 // Listen for a click on a card
 document.addEventListener('click', select, true);
 
 
- /*  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
