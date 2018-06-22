@@ -2,6 +2,7 @@
  * Create a list that holds all of your cards
  */
 const cards = document.querySelectorAll('.card i');
+const deck = document.getElementById('deck');
 console.log(cards);  // This is for my reference to see the list of cards in the js console
 
 /*
@@ -78,7 +79,7 @@ const select = function(event) {
 };
 
 // Listen for a click on a card
-document.addEventListener('click', select, true);
+deck.addEventListener('click', select, false);
 
 
  /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
