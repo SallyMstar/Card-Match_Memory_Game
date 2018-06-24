@@ -1,9 +1,11 @@
 /*
  * Create a list that holds all of your cards
  */
-const cards = document.querySelectorAll('.card i');
+
+// Define variables
 const deck = document.getElementById('deck');
-console.log(cards);  // This is for my reference to see the list of cards in the js console
+const cards = document.querySelectorAll('.card');
+const turned = document.getElementsByClassName('open');
 
 /*
  * Display the cards on the page
@@ -28,58 +30,63 @@ function shuffle(array) {
 
 shuffle(cards);
 
-/* set up the event listener for a card. If a card is clicked:
-     - display the card's symbol (put this functionality in another
-     function that you call from this one) */
 
-// set up the check to see if two cards are revealed
 
 
 // set up the function to reveal a card
-const look = function() {
-     $(this).toggleClass('open');
-     $(this).toggleClass('show');
+const look = function(guess) {
+     $(guess).toggleClass('open');
+     setTimeout(function() {
+          $(guess).toggleClass('show');
+     }, 200);
 };
 
+// set up the check to see if two cards are revealed
 const check = function() {
-const turned = document.getElementsByClassName('open');
-     console.log(turned.length);
-     if(turned.length === 2) {
+     if(turned.length === 2) {  // if 2 cards match, change class to match
           let card1 = document.getElementsByClassName('open').item(0);
           let card1Style = card1.firstElementChild.classList.item(1);
           let card2 = document.getElementsByClassName('open').item(1);
           let card2Style = card2.firstElementChild.classList.item(1);
-          console.log(card1Style);
-          console.log(card2Style);
-          if(card1Style === card2Style) {
+          if(card1Style === card2Style) {  // if the 2 cards match, lock the view
+               setTimeout(function() {  // pause to view before locking the match
                card1.classList.remove('open','show');
                card2.classList.remove('open','show');
                card1.classList.add('match');
                card2.classList.add('match');
-               card1 = '';
+               card1 = '';  // reset the variables for the selected elements
                card2= '';
                card1Style = '';
                card2Style = '';
-          } else {
-          console.log("fail....try again");
+          }, 600);
+     } else {  // if not a match, reset the cards after a pause to view
           setTimeout(function() {
           card1.classList.remove('open','show');
           card2.classList.remove('open','show');
-          }, 2000);
-     }} else {
-          console.log("Please choose a card");
-     }
+     }, 600);
+     }}
 };
 
 // set up the function to respond to user selection
-const select = function(event) {
-     $('ul').on('click', 'li', look);
+const select = function(guess) {
+     if(turned.length < 2) {
+     look(guess);
      setTimeout(function() {
-          check()}, 2000);
-};
+          check()}, 600);
+}};
+
+/* set up the event listener for a card. If a card is clicked:
+- display the card's symbol (put this functionality in another
+function that you call from this one) */
 
 // Listen for a click on a card
-deck.addEventListener('click', select, false);
+
+deck.addEventListener('click', function(e) {
+     const guess = e.target;
+     if(guess.classList == 'card') {
+          select(guess);
+     }
+}, true);
 
 
  /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
