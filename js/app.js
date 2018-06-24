@@ -80,6 +80,7 @@ const select = function(guess) {
 function that you call from this one) */
 
 // Listen for a click on a card
+
 deck.addEventListener('click', function(e) {
      const guess = e.target;
      if(guess.classList == 'card') {
