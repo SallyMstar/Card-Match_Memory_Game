@@ -2,10 +2,19 @@
  * Create a list that holds all of your cards
  */
 
+let cardPic = ['diamond','diamond',
+               'paper-plane-o','paper-plane-o',
+               'anchor','anchor',
+               'bolt','bolt',
+               'cube','cube',
+               'leaf','leaf',
+               'bicycle','bicycle',
+               'bomb','bomb'];
+
 // Define variables
 const deck = document.getElementById('deck');
-const cards = document.querySelectorAll('.card');
 const turned = document.getElementsByClassName('open');
+let cards = document.querySelectorAll('.card');
 
 /*
  * Display the cards on the page
@@ -15,25 +24,42 @@ const turned = document.getElementsByClassName('open');
  */
 
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
+function shuffle(cards) {
+    var currentIndex = cardPic.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+        temporaryValue = cards[currentIndex];
+        cards[currentIndex] = cards[randomIndex];
+        cards[randomIndex] = temporaryValue;
     }
-    return array;
+    return cards;
 }
 
-shuffle(cards);
+// shuffle the cards prior to display
+cardPic = shuffle(cardPic);
+
+// now, deal the cards
+cardPic.forEach(function(item, index, array) {
+     // for each image, creat a card element
+     const cardEl = document.createElement('li');
+     // for each card element, add the class
+     cardEl.classList.add("card");
+     // add the card to the page
+     deck.append(cardEl);
+
+     // for each card, create the image element
+     const iEl = document.createElement('i');
+     // create the class name for each image
+     const iClass =  cardPic[index];
+     // for each image, add the class
+     iEl.classList.add("fa","fa-"+iClass);
+     // add the image to the card created above
+     cardEl.append(iEl);
+});
 
 
-
-
-// set up the function to reveal a card
+// reveal a card
 const look = function(guess) {
      $(guess).toggleClass('open');
      setTimeout(function() {
@@ -41,7 +67,7 @@ const look = function(guess) {
      }, 200);
 };
 
-// set up the check to see if two cards are revealed
+// check to see if two cards are revealed
 const check = function() {
      if(turned.length === 2) {  // if 2 cards match, change class to match
           let card1 = document.getElementsByClassName('open').item(0);
@@ -67,7 +93,7 @@ const check = function() {
      }}
 };
 
-// set up the function to respond to user selection
+// respond to user selection but not more than 2 cards showing at a time
 const select = function(guess) {
      if(turned.length < 2) {
      look(guess);
