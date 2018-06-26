@@ -36,7 +36,7 @@ function shuffle(cards) {
     return cards;
 }
 
-// shuffle the cards prior to display
+// shuffle the cards prior to di
 cardPic = shuffle(cardPic);
 
 // now, deal the cards
@@ -69,12 +69,15 @@ const look = function(guess) {
 
 // check to see if two cards are revealed
 const check = function() {
-     if(turned.length === 2) {  // if 2 cards match, change class to match
+     if(turned.length === 2) {
+          // retrieve the image class values of each card
           let card1 = document.getElementsByClassName('open').item(0);
           let card1Style = card1.firstElementChild.classList.item(1);
           let card2 = document.getElementsByClassName('open').item(1);
           let card2Style = card2.firstElementChild.classList.item(1);
-          if(card1Style === card2Style) {  // if the 2 cards match, lock the view
+
+          // if the 2 cards match, change class to 'match' to lock the view
+          if(card1Style === card2Style) {
                setTimeout(function() {  // pause to view before locking the match
                card1.classList.remove('open','show');
                card2.classList.remove('open','show');
@@ -93,20 +96,19 @@ const check = function() {
      }}
 };
 
-// respond to user selection but not more than 2 cards showing at a time
+// respond to user selection
 const select = function(guess) {
-     if(turned.length < 2) {
-     look(guess);
-     setTimeout(function() {
-          check()}, 600);
+     if(turned.length < 2) {  // ignore selection of more than 2 cards
+     look(guess); // look at the selected card
+     setTimeout(function() {  // pause for view
+          check()}, 600);  // check for match
 }};
 
 /* set up the event listener for a card. If a card is clicked:
 - display the card's symbol (put this functionality in another
 function that you call from this one) */
 
-// Listen for a click on a card
-
+// when user clicks on a card, launch select() on the guess to look & check the card
 deck.addEventListener('click', function(e) {
      const guess = e.target;
      if(guess.classList == 'card') {
