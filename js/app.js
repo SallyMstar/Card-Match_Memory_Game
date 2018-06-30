@@ -90,10 +90,19 @@ const check = function() {
           }, 600);
      } else {  // if not a match, reset the cards after a pause to view
           setTimeout(function() {
-          card1.classList.remove('open','show');
-          card2.classList.remove('open','show');
-     }, 600);
-     }}
+               card1.classList.add('close');
+               card2.classList.add('close');
+          }, 200);
+          setTimeout(function() {
+               card1.classList.remove('open','show');
+               card2.classList.remove('open','show');
+          }, 400);
+          setTimeout(function() {
+               card1.classList.remove('close');
+               card2.classList.remove('close');
+          }, 700);
+     };
+};
 };
 
 // respond to user selection

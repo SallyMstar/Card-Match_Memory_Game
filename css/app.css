@@ -71,16 +71,21 @@ h1 {
     cursor: default;
 }
 
+.deck .card.close {
+    transform: rotateY(0deg);
+    transition: transform .6s;
+    cursor: pointer;
+}
+
 .deck .card.show {
-    font-size: 33px;
-    background: #02b3e4;
+     font-size: 33px;
+     background: #02b3e4;
 }
 
 .deck .card.match {
     cursor: default;
     background: #02ccba;
     font-size: 33px;
-    transform: rotateY(180deg);
 }
 
 /*
