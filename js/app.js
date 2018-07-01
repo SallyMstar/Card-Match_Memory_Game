@@ -125,6 +125,8 @@ const check = function() {
           }, 700);
           // subtract from remaining moves
           moves --;
+          // if player has 3 failed guesses, subtract one star
+          // and reset move counter
           if(moves < 1) {
                moves = 3;
                loss = document.querySelectorAll('#stars li');
