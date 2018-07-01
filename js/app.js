@@ -15,6 +15,8 @@ let cardPic = ['diamond','diamond',
 const deck = document.getElementById('deck');
 const turned = document.getElementsByClassName('open');
 let cards = document.querySelectorAll('.card');
+let moves = 3;
+let starScore = 3;
 
 /*
  * Display the cards on the page
@@ -25,7 +27,7 @@ let cards = document.querySelectorAll('.card');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(cards) {
-    var currentIndex = cardPic.length, temporaryValue, randomIndex;
+    let currentIndex = cardPic.length, temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
         currentIndex -= 1;
@@ -58,6 +60,26 @@ cardPic.forEach(function(item, index, array) {
      cardEl.append(iEl);
 });
 
+// set the initial score Paneel
+// -------- stars --------
+
+let stars = document.getElementById('stars');
+const starkeeper = function(count) {
+     let i=0;
+     while(count > i) {
+          let starline = document.createElement('li');
+          let staritem = document.createElement('i');
+          staritem.classList.add("fa","fa-star");
+          starline.append(staritem);
+          stars.append(starline);
+          ++i;
+     };
+};
+starkeeper(starScore);
+
+// ------- numeric move counter -------
+const moveCounter = document.getElementById('moves');
+moveCounter.prepend(moves);
 
 // reveal a card
 const look = function(guess) {
@@ -101,6 +123,15 @@ const check = function() {
                card1.classList.remove('close');
                card2.classList.remove('close');
           }, 700);
+          // subtract from remaining moves
+          moves --;
+          if(moves < 1) {
+               moves = 3;
+               loss = document.querySelectorAll('#stars li');
+               loss[0].remove();
+          }
+          // show remaining moves for star rating
+          moveCounter.innerHTML = moves;
      };
 };
 };
