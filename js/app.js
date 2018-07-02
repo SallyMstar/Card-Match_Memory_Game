@@ -45,6 +45,7 @@ const starkeeper = function(count) {
  *   - add each card's HTML to the page
  */
 
+// --------------- Shuffle ---------------
 // Shuffle function from http://stackoverflow.com/a/2450976
 const shuffle = function shuffle(cards) {
     let currentIndex = cardPic.length, temporaryValue, randomIndex;
@@ -58,6 +59,7 @@ const shuffle = function shuffle(cards) {
     return cards;
 };
 
+// --------------- Dealer --------------
 const deal = function() {
      while(deck.hasChildNodes()) {
           deck.removeChild(deck.firstChild);
@@ -151,8 +153,13 @@ const check = function() {
           if(moves < 1) {
                moves = 3;
                loss = document.querySelectorAll('#stars li');
-               loss[0].remove();
-          }
+               if(loss[0]) {
+                    loss[0].remove();
+               } else {
+                    alert('Sorry, you lose :(  Try again!');
+                    deal();
+               };
+          };
           // show remaining moves for star rating
           moveCounter.innerHTML = moves;
      };
