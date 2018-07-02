@@ -124,7 +124,9 @@ const check = function() {
                card2Style = '';
           }, 600);
           ++ cardMatch;
+          // find the total number of card-sets
           let checkWin = document.getElementsByClassName('card');
+          // if all matches have been found, announce the win
           if(cardMatch ===(checkWin.length/2)) {
                alert("YOU WON!");
           };
