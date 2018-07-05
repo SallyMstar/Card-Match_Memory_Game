@@ -16,10 +16,12 @@ const deck = document.getElementById('deck');
 const turned = document.getElementsByClassName('open');
 const cards = document.querySelectorAll('.card');
 let cardMatch = 0;
+let moveTotal = 0;
 
+const moveMeter = document.getElementById('moveMeter');
 const moveCounter = document.getElementById('moves');
-     let moves = 3;
-     let starScore = 3;
+     let moves = 4;
+     let starScore = 5;
 const redeal = document.getElementById('deal');
 
 // Define functions
@@ -67,8 +69,10 @@ const deal = function() {
      while(stars.hasChildNodes()) {
           stars.removeChild(stars.firstChild);
      };
-     moves = 3;
-     starscore = 3;
+     starscore = 5;
+     moves = 4;
+     moveTotal = 0;
+     cardMatch = 0;
      // shuffle the cards prior to deal
      cardPic = shuffle(cardPic);
 
@@ -93,7 +97,7 @@ const deal = function() {
      // ------- set star counter -------
      starkeeper(starScore);
      // ------- numeric move counter -------
-     moveCounter.innerHTML = moves;
+     moveCounter.innerHTML = moveTotal;
 };
 
 // reveal a card
@@ -112,6 +116,7 @@ const check = function() {
           let card1Style = card1.firstElementChild.classList.item(1);
           let card2 = document.getElementsByClassName('open').item(1);
           let card2Style = card2.firstElementChild.classList.item(1);
+          moveTotal ++;
 
           // if the 2 cards match, change class to 'match' to lock the view
           if(card1Style === card2Style) {
@@ -125,13 +130,17 @@ const check = function() {
                card1Style = '';
                card2Style = '';
           }, 600);
-          ++ cardMatch;
-          // find the total number of card-sets
-          let checkWin = document.getElementsByClassName('card');
+          cardMatch ++;
+          console.log("CardMatch = "+cardMatch);
           // if all matches have been found, announce the win
-          if(cardMatch ===(checkWin.length/2)) {
-               alert("YOU WON!");
-          };
+          setTimeout(function() {
+               // find the total number of card-sets
+               let checkWin = document.getElementsByClassName('card');
+               console.log("CheckWin = "+checkWin.length/2);
+               if(cardMatch ===(checkWin.length/2)) {
+                    alert("CONGRATULATIONS! YOU WON IN "+moveTotal+" MOVES!");
+               };
+               }, 200);
      } else {
           // if not a match, reset the cards after a pause to view
           setTimeout(function() {
@@ -151,7 +160,7 @@ const check = function() {
           // if player has 3 failed guesses, subtract one star
           // and reset move counter
           if(moves < 1) {
-               moves = 3;
+               moves = 4;
                loss = document.querySelectorAll('#stars li');
                if(loss[0]) {
                     loss[0].remove();
@@ -160,9 +169,9 @@ const check = function() {
                     deal();
                };
           };
-          // show remaining moves for star rating
-          moveCounter.innerHTML = moves;
      };
+     // show running count of moves
+     moveCounter.innerHTML = moveTotal;
 };
 };
 
