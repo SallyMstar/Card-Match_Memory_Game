@@ -146,15 +146,15 @@ const check = function() {
           setTimeout(function() {
                card1.classList.add('close');
                card2.classList.add('close');
-          }, 200);
+          }, 500);
           setTimeout(function() {
                card1.classList.remove('open','show');
                card2.classList.remove('open','show');
-          }, 400);
+          }, 700);
           setTimeout(function() {
                card1.classList.remove('close');
                card2.classList.remove('close');
-          }, 700);
+          }, 900);
           // subtract from remaining moves
           moves --;
           // if player has 3 failed guesses, subtract one star

@@ -73,7 +73,7 @@ h1 {
 
 .deck .card.close {
     transform: rotateY(0deg);
-    transition: transform .6s;
+    transition: transform 0.6s;
     cursor: pointer;
 }
 
