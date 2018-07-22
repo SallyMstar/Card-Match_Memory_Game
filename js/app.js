@@ -87,8 +87,6 @@ const deal = function() {
      moves = 4;
      moveTotal = 0;
      cardMatch = 0;
-     minutes = 0;
-     seconds = "00";
      // shuffle the cards prior to deal
      cardPic = shuffle(cardPic);
 
@@ -114,6 +112,12 @@ const deal = function() {
      starkeeper(starScore);
      // ------- numeric move counter -------
      moveCounter.innerHTML = moveTotal;
+
+     // ------- reset timer ---------
+     minutes = 0;
+     seconds = "00";
+     clock.innerHTML = "Timer: "+minutes+":"+seconds;
+     setInterval(clockCount);
 };
 
 // reveal a card
