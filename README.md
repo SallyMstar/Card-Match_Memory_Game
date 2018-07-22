@@ -2,19 +2,18 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
-* [Contributing](#contributing)
+* [Instructions]
+* [Contributing]
+
+
 
 ## Instructions
+The goal of this memory game is to finish as quickly as possible with as few errors as possible.  For every 4 misses, you will lose one star.  Once all your stars are gone, the game is over and you may restart to try again.
 
 The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
 
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
 
 ## Contributing
+The images used on the cards are compliments of Font Awesome, the shuffle function comes from http://stackoverflow.com/a/2450976, and the starter code and guidelines are from Udacity.
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+Thank you for choosing to play!
