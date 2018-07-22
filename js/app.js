@@ -18,6 +18,7 @@ const cards = document.querySelectorAll('.card');
 let cardMatch = 0;
 let moveTotal = 0;
 
+
 const moveMeter = document.getElementById('moveMeter');
 const moveCounter = document.getElementById('moves');
      let moves = 4;
@@ -25,6 +26,26 @@ const moveCounter = document.getElementById('moves');
 const redeal = document.getElementById('deal');
 
 // Define functions
+
+// -------- timer ---------
+// add timer for the Game
+     let time=0;
+     let minutes=0;
+     let rawSeconds = 0;
+     let seconds = 0;
+const clock = document.getElementById('clock');
+const clockCount = setInterval(timer, 1000);
+function timer() {
+     time ++;
+     minutes = parseInt(time/60);
+     rawSeconds = (time-(minutes*60));
+     if(rawSeconds < 10) {
+          seconds = "0"+rawSeconds;
+     } else {
+          seconds = rawSeconds;
+     }
+     clock.innerHTML = "Timer: "+minutes+":"+seconds;
+     }
 
 // -------- stars --------
 let stars = document.getElementById('stars');
@@ -36,16 +57,9 @@ const starkeeper = function(count) {
           staritem.classList.add("fa","fa-star");
           starline.append(staritem);
           stars.append(starline);
-          ++i;
+          i++;
      };
 };
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
 // --------------- Shuffle ---------------
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -73,6 +87,8 @@ const deal = function() {
      moves = 4;
      moveTotal = 0;
      cardMatch = 0;
+     minutes = 0;
+     seconds = "00";
      // shuffle the cards prior to deal
      cardPic = shuffle(cardPic);
 
@@ -133,12 +149,14 @@ const check = function() {
           cardMatch ++;
           console.log("CardMatch = "+cardMatch);
           // if all matches have been found, announce the win
+          // find the total number of card-sets
+          let checkWin = document.getElementsByClassName('card');
           setTimeout(function() {
-               // find the total number of card-sets
-               let checkWin = document.getElementsByClassName('card');
                console.log("CheckWin = "+checkWin.length/2);
                if(cardMatch ===(checkWin.length/2)) {
-                    alert("CONGRATULATIONS! YOU WON IN "+moveTotal+" MOVES!");
+                    alert("CONGRATULATIONS! YOU WON IN "+moveTotal+" MOVES!"+
+                    "\n You earned "+starscore+" stars in a time of "+minutes+":"+seconds+"!");
+                    clearInterval(clockCount);
                };
                }, 200);
      } else {
@@ -157,11 +175,12 @@ const check = function() {
           }, 900);
           // subtract from remaining moves
           moves --;
-          // if player has 3 failed guesses, subtract one star
+          // if player has 4 failed guesses, subtract one star
           // and reset move counter
           if(moves < 1) {
                moves = 4;
                loss = document.querySelectorAll('#stars li');
+               -- starscore;
                if(loss[0]) {
                     loss[0].remove();
                } else {
@@ -200,8 +219,12 @@ deck.addEventListener('click', function(e) {
 
 // add listener for redeal
 redeal.addEventListener('click', function() {
+     // ------- set the timer --------
+     clearInterval(clockCount);
+     clock.innerHTML = "Timer: "+minutes+":"+seconds;
      deal();
 });
+
  /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  - if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
