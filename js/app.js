@@ -15,26 +15,24 @@ let cardPic = ['diamond','diamond',
 const deck = document.getElementById('deck');
 const turned = document.getElementsByClassName('open');
 const cards = document.querySelectorAll('.card');
-let cardMatch = 0;
-let moveTotal = 0;
-
-
+     let cardMatch = 0;
+     let moveTotal = 0;
 const moveMeter = document.getElementById('moveMeter');
 const moveCounter = document.getElementById('moves');
      let moves = 4;
      let starScore = 5;
+const clock = document.getElementById('clock');
 const redeal = document.getElementById('deal');
 
 // Define functions
 
 // -------- timer ---------
 // add timer for the Game
-     let time=0;
-     let minutes=0;
-     let rawSeconds = 0;
-     let seconds = 0;
-const clock = document.getElementById('clock');
-const clockCount = setInterval(timer, 1000);
+let time=0;
+let minutes=0;
+let rawSeconds = 0;
+let seconds = 0;
+let clockCount = setInterval(timer, 1000);
 function timer() {
      time ++;
      minutes = parseInt(time/60);
@@ -45,7 +43,18 @@ function timer() {
           seconds = rawSeconds;
      }
      clock.innerHTML = "Timer: "+minutes+":"+seconds;
-     }
+};
+
+// -------- reset timer ---------
+const resetTimer = function() {
+     clearInterval(clockCount);
+     time=0;
+     minutes=0;
+     rawSeconds = 0;
+     seconds = 0;
+     clockCount = setInterval(timer,1000);
+     console.log(time);
+};
 
 // -------- stars --------
 let stars = document.getElementById('stars');
@@ -117,7 +126,7 @@ const deal = function() {
      minutes = 0;
      seconds = "00";
      clock.innerHTML = "Timer: "+minutes+":"+seconds;
-     setInterval(clockCount);
+     resetTimer();
 };
 
 // reveal a card
@@ -223,10 +232,9 @@ deck.addEventListener('click', function(e) {
 
 // add listener for redeal
 redeal.addEventListener('click', function() {
-     // ------- set the timer --------
-     clearInterval(clockCount);
-     clock.innerHTML = "Timer: "+minutes+":"+seconds;
      deal();
+     // ------- set the timer --------
+     resetTimer();
 });
 
  /*  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
